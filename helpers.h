@@ -1,6 +1,6 @@
 //
 // Created by MassiveAtoms on 2/1/21.
-//
+// Edited by PyroStefan on 2/16/21
 
 #ifndef OS_PROJ_HELPERS_H
 #define OS_PROJ_HELPERS_H
@@ -73,6 +73,21 @@ Command get_command()
         // we could loop readnumberoflines times, and cout << i, execFH(i)
         // or do a dedicated function
         // because it'd be a wasteful 10x looping over the file to the end
+
+        char lines[6][256];
+        size_t i = 0;
+        FILE *myfile = fopen("./osshell_history", "r");
+        
+        while (fgets(lines[i % 11], sizeof(lines[i % 11]), myfile) != NULL) {
+            i++;
+        }
+            
+        fclose(myfile);
+            
+        for (size_t j = i < 10 ? 0 : i - 10; j < i; j++) {
+            fputs(lines[j % 11], stdout);
+        }
+
     }
 
     c.nonempty = true;
